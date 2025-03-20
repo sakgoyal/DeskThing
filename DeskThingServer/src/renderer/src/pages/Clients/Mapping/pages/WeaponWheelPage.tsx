@@ -1,16 +1,11 @@
 import { PageProps } from '..'
 import useMappingStore from '@renderer/stores/mappingStore'
-import { ActionReference } from '@DeskThing/types'
+import { ActionReference } from '@deskthing/types'
 import { ActionIcon } from '../components/ActionIcon'
 import Button from '@renderer/components/Button'
 import { IconCarThing } from '@renderer/assets/icons'
 
-const WheelPage: React.FC<PageProps> = ({
-  selectedKey,
-  setSelectedKey,
-  currentMapping,
-  mode
-}: PageProps) => {
+const WheelPage: React.FC<PageProps> = ({ selectedKey, setSelectedKey, currentMapping, mode }) => {
   const getKeyById = useMappingStore((state) => state.getKeyById)
   const handleKeyClick = async (keyId: string): Promise<void> => {
     const key = await getKeyById(keyId)
@@ -88,7 +83,7 @@ const WheelButton: React.FC<WheelButtonProps> = ({
   selectedKeyId,
   action,
   className
-}: WheelButtonProps) => {
+}) => {
   const handleClick = (): void => {
     onKeyClick(keyId)
   }

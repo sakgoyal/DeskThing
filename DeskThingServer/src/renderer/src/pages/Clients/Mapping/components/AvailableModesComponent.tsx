@@ -1,6 +1,6 @@
 import Button from '@renderer/components/Button'
 import { useClientStore } from '@renderer/stores'
-import { EventMode } from '@DeskThing/types'
+import { EventMode } from '@deskthing/types'
 
 interface AvailableModesProps {
   modes: EventMode[]
@@ -8,11 +8,7 @@ interface AvailableModesProps {
   currentMode: EventMode
 }
 
-const AvailableModes: React.FC<AvailableModesProps> = ({
-  currentMode,
-  modes,
-  setSelectedMode
-}: AvailableModesProps) => {
+const AvailableModes: React.FC<AvailableModesProps> = ({ currentMode, modes, setSelectedMode }) => {
   const handleModeClick = (mode: EventMode): void => {
     setSelectedMode(mode)
   }
@@ -21,7 +17,7 @@ const AvailableModes: React.FC<AvailableModesProps> = ({
   return (
     <div className="w-full overflow-y-auto border-b border-gray-700 p-3 flex-shrink-0 items-center justify-between flex gap-3">
       <div className="items-center flex gap-3">
-        <p>Modes: </p>
+        <p>Modes:</p>
         {modes.map((mode, index) => (
           <Button
             onClick={() => handleModeClick(mode)}

@@ -1,7 +1,7 @@
 console.log('[AppMangr Service] Starting')
-import { rmSync, readdirSync, statSync, existsSync } from 'node:fs'
+import { existsSync, readdirSync, rmSync, statSync } from 'node:fs'
 import Logger from '@server/utils/logger'
-import { LOGGING_LEVELS } from '@DeskThing/types'
+import { LOGGING_LEVELS } from '@deskthing/types'
 import { storeProvider } from '@server/stores/storeProvider'
 
 /**

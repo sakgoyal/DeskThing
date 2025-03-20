@@ -1,4 +1,4 @@
-import { Task, Step } from '@deskthing/types'
+import { Step, Task } from '@deskthing/types'
 import { StoreInterface } from '@shared/interfaces/storeInterface'
 import { FullTaskList } from '@shared/types'
 

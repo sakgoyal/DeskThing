@@ -2,27 +2,27 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 import { BrowserWindow, IpcRendererEvent } from 'electron'
-import { Log, Settings, Button, MappingStructure, Client, ADBClient } from '.'
+import { ADBClient, Button, Client, Log, MappingStructure, Settings } from '.'
 import {
-  Step,
-  Task,
   Action,
-  Key,
+  ActionReference,
   App,
   AppManifest,
-  AppReleaseMeta,
   AppReleaseCommunity,
-  AppSettings,
-  EventPayload,
-  ActionReference,
+  AppReleaseMeta,
   AppReleaseSingleMeta,
-  ClientReleaseMeta,
+  AppSettings,
   AuthScopes,
-  SavedData,
   ButtonMapping,
-  Profile
+  ClientReleaseMeta,
+  EventPayload,
+  Key,
+  Profile,
+  SavedData,
+  Step,
+  Task
 } from '@deskthing/types'
-import { FeedbackReport, StagedAppManifest, SystemInfo, FullTaskList } from '@shared/types'
+import { FeedbackReport, FullTaskList, StagedAppManifest, SystemInfo } from '@shared/types'
 
 export const IPC_HANDLERS = {
   UTILITY: 'utility',

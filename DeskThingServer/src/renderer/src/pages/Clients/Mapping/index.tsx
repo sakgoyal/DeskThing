@@ -16,7 +16,7 @@ import {
 } from '@renderer/assets/icons'
 import MainElement from '@renderer/nav/MainElement'
 import useMappingStore from '@renderer/stores/mappingStore'
-import { EventMode, Key, ButtonMapping, Profile } from '@DeskThing/types'
+import { ButtonMapping, EventMode, Key, Profile } from '@deskthing/types'
 import CarThingPage from './pages/CarThingPage'
 import WheelPage from './pages/WeaponWheelPage'
 import MiniplayerPage from './pages/MiniplayerPage'
@@ -44,9 +44,7 @@ interface Page {
   keyList: string[]
 }
 
-interface PagesInterface {
-  [key: string]: Page
-}
+type PagesInterface = Record<string, Page>
 
 const pages: PagesInterface = {
   carthing: {

@@ -1,4 +1,4 @@
-import { describe, expect, it, vi, beforeEach, afterEach } from 'vitest'
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { ConnectionStore } from '../../../src/main/stores/connectionsStore'
 import { SettingsStoreClass } from '@shared/stores/settingsStore'
 import { TaskStoreClass } from '@shared/stores/taskStore'

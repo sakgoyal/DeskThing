@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import AvailableModes from './components/AvailableModesComponent'
-import { Key, EventMode, Action, ButtonMapping } from '@DeskThing/types'
+import { Action, ButtonMapping, EventMode, Key } from '@deskthing/types'
 import AvailableKeys from './components/AvailableKeysComponent'
 import { PageProps } from '.'
 import AllActionsComponent from './components/AllActionsComponent'
@@ -20,7 +20,7 @@ const MappingPage: React.FC<MappingPageProps> = ({
   Component,
   setCurrentMapping,
   setActiveChanges
-}: MappingPageProps) => {
+}) => {
   const [mode, setCurrentMode] = useState<EventMode>(EventMode.KeyDown)
   const [key, setCurrentKey] = useState<Key>()
 

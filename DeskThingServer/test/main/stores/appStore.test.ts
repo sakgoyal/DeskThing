@@ -1,7 +1,7 @@
-import { describe, expect, it, vi, beforeEach, afterEach } from 'vitest'
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { AppStore } from '@server/stores/appStore'
 import { AppProcessStoreClass } from '@shared/stores/appProcessStore'
-import { App, SEND_TYPES } from '@DeskThing/types'
+import { App, SEND_TYPES } from '@deskthing/types'
 import Logger from '@server/utils/logger'
 import { AuthStoreClass } from '@shared/stores/authStore'
 

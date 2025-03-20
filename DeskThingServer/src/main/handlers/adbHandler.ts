@@ -11,8 +11,7 @@ const execPath = isDevelopment
   ? path.join(__dirname, '..', '..', '..', 'adb_source', getPlatform())
   : path.join(process.resourcesPath, getPlatform())
 
-const adbExecutableName = process.platform === 'win32' ? 'adb.exe' : 'adb'
-const adbPath = path.join(execPath, adbExecutableName)
+const adbPath = path.join(execPath, 'adb')
 
 /**
  * Splits a string into an array of arguments, handling quoted strings.
@@ -49,13 +48,12 @@ export const handleAdbCommands = async (command: string, replyFn?: ReplyFn): Pro
       { cwd: execPath },
       (error, stdout, stderr) => {
         if (error) {
-          replyFn &&
-            replyFn('logging', {
-              status: false,
-              data: 'Error Encountered!',
-              final: false,
-              error: stderr
-            })
+          replyFn?.('logging', {
+            status: false,
+            data: 'Error Encountered!',
+            final: false,
+            error: stderr
+          })
           Logger.error(`ADB Error: ${stderr}, ${command}, ${adbPath}`, {
             error: error as Error,
             function: 'adbHandler',
@@ -63,12 +61,11 @@ export const handleAdbCommands = async (command: string, replyFn?: ReplyFn): Pro
           })
           reject(new Error(`ADB Error: ${stderr}, ${command}, ${adbPath}`))
         } else {
-          replyFn &&
-            replyFn('logging', {
-              status: true,
-              data: 'ADB Success!',
-              final: false
-            })
+          replyFn?.('logging', {
+            status: true,
+            data: 'ADB Success!',
+            final: false
+          })
           resolve(stdout)
         }
       }

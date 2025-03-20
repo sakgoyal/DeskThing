@@ -10,7 +10,7 @@
  * - The client interface (for the connections store)
  */
 
-import { SendToDeviceFromServerPayload, SocketData, ToDeviceData } from '@DeskThing/types'
+import { SendToDeviceFromServerPayload, SocketData, ToDeviceData } from '@deskthing/types'
 import { Client } from '@shared/types'
 
 export enum PlatformEvent {

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { IconCarThingSmall, IconDiscord, IconLink, IconYoutube } from '@renderer/assets/icons'
 import Button from '@renderer/components/Button'
 import { useNavigate } from 'react-router-dom'

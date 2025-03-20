@@ -6,13 +6,13 @@
 // Types
 import { MusicStoreClass } from '@shared/stores/musicStore'
 import {
+  FromDeviceDataEvents,
   LOGGING_LEVELS,
-  SongData,
-  ServerEvent,
   MusicEventPayloads,
   SEND_TYPES,
-  FromDeviceDataEvents
-} from '@DeskThing/types'
+  ServerEvent,
+  SongData
+} from '@deskthing/types'
 import { CacheableStore, Settings } from '@shared/types'
 import { SettingsStoreClass } from '@shared/stores/settingsStore'
 import { AppStoreClass } from '@shared/stores/appStore'

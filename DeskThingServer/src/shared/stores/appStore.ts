@@ -1,4 +1,4 @@
-import { App, EventPayload, AppManifest, SEND_TYPES } from '@deskthing/types'
+import { App, AppManifest, EventPayload, SEND_TYPES } from '@deskthing/types'
 import { stageAppFileType } from '@server/services/apps/appInstaller'
 import { ReplyFn, StagedAppManifest } from '../types'
 import { AppDataFilters, AppProcessListener } from './appProcessStore'

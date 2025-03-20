@@ -1,18 +1,13 @@
 import { useEffect, useState } from 'react'
 import { PageProps } from '..'
 import useMappingStore from '@renderer/stores/mappingStore'
-import { Key } from '@DeskThing/types'
+import { Key } from '@deskthing/types'
 import { ActionIcon } from '../components/ActionIcon'
 import Button from '@renderer/components/Button'
 
 const keyList: string[] = ['Tray1', 'Tray2', 'Tray3', 'Tray4', 'Tray5', 'Tray6']
 
-const TrayPage: React.FC<PageProps> = ({
-  selectedKey,
-  setSelectedKey,
-  currentMapping,
-  mode
-}: PageProps) => {
+const TrayPage: React.FC<PageProps> = ({ selectedKey, setSelectedKey, currentMapping, mode }) => {
   const keys = useMappingStore((state) => state.keys)
   const [miniplayerKeys, setMiniplayerKeys] = useState<Key[]>([])
 

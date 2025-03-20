@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react'
 import useTaskStore from '@renderer/stores/taskStore'
-import { Task } from '@DeskThing/types'
+import { Task } from '@deskthing/types'
 import { FullTaskList } from '@shared/types'
 import { useSearchParams } from 'react-router-dom'
 import TaskComponent from '@renderer/components/tasks/TaskComponent'

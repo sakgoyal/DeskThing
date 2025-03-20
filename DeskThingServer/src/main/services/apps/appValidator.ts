@@ -1,8 +1,12 @@
 // App Types
 import {
+  App,
+  AppDataInterface,
   AppManifest,
+  AppReleaseSingleMeta,
   AppSettings,
   LOGGING_LEVELS,
+  PlatformTypes,
   SETTING_TYPES,
   SettingsBoolean,
   SettingsColor,
@@ -14,11 +18,7 @@ import {
   SettingsSelect,
   SettingsString,
   SettingsType,
-  App,
-  AppDataInterface,
-  PlatformTypes,
-  TagTypes,
-  AppReleaseSingleMeta
+  TagTypes
 } from '@deskthing/types'
 import { AppData, LegacyAppData } from '@shared/types'
 
@@ -229,7 +229,7 @@ export const isValidAppSettings: (
 /**
  * @throws Error when not a structure
  * @param apps - The AppData
- * */
+ */
 export const verifyAppDataStructure: (
   apps?: unknown | AppData | LegacyAppData
 ) => asserts apps is AppData = (apps) => {
@@ -243,7 +243,7 @@ export const verifyAppDataStructure: (
     oldApps.apps.forEach((app) => {
       try {
         sanitizeAppStructure(app)
-        apps[app.name] = app
+        apps[app.name as keyof typeof apps] = app
       } catch (error) {
         handleError(
           error,

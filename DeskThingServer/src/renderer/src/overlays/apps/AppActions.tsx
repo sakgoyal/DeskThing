@@ -4,10 +4,10 @@ import Button from '@renderer/components/Button'
 import { IconPlay, IconStop, IconTrash, IconX } from '@renderer/assets/icons'
 import { useAppStore } from '@renderer/stores'
 import useMappingStore from '@renderer/stores/mappingStore'
-import { Action } from '@DeskThing/types'
+import { Action } from '@deskthing/types'
 import ActionElement from '@renderer/components/ActionElement'
 
-const AppActions: React.FC<AppSettingProps> = ({ app }: AppSettingProps) => {
+const AppActions: React.FC<AppSettingProps> = ({ app }) => {
   const stopApp = useAppStore((state) => state.stopApp)
   const runApp = useAppStore((state) => state.runApp)
   const disableApp = useAppStore((state) => state.disableApp)

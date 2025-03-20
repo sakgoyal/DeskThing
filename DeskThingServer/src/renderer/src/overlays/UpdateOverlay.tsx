@@ -1,3 +1,4 @@
+import { IpcRendererListener } from '@electron-toolkit/preload'
 import { IconArrowRight, IconLink, IconLoading, IconX } from '@renderer/assets/icons'
 import Button from '@renderer/components/Button'
 import useUpdateStore from '@renderer/stores/updateStore'
@@ -41,7 +42,7 @@ const UpdateOverlay: React.FC = () => {
   }
 
   useEffect(() => {
-    const handleUpdateProgress = (_event, data: UpdateProgressType): void => {
+    const handleUpdateProgress: IpcRendererListener = (_event, data: UpdateProgressType): void => {
       setProgress(data)
     }
 

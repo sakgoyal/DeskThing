@@ -1,15 +1,15 @@
 // Types
 import {
   AppDataInterface,
-  SettingsType,
   AppSettings,
-  ServerEvent,
-  Step,
-  Task,
+  SavedData,
   SEND_TYPES,
-  SavedData
-} from '@DeskThing/types'
-import { TaskReference, CacheableStore, FullTaskList } from '@shared/types'
+  ServerEvent,
+  SettingsType,
+  Step,
+  Task
+} from '@deskthing/types'
+import { CacheableStore, FullTaskList, TaskReference } from '@shared/types'
 import { TaskStoreClass } from '@shared/stores/taskStore'
 import { AppStoreClass } from '@shared/stores/appStore'
 import {
@@ -223,7 +223,8 @@ export class AppDataStore implements CacheableStore, AppDataStoreClass {
     const fieldsToUpdate: (keyof Omit<AppDataInterface, 'version'>)[] = Object.keys(
       this.appDataCache[name]
     ).filter(
-      (field) => this.appDataCache[name][field] !== undefined || field == 'version'
+      (field) =>
+        this.appDataCache[name][field as keyof AppDataInterface] !== undefined || field == 'version'
     ) as (keyof Omit<AppDataInterface, 'version'>)[]
     if (fieldsToUpdate.length === 0) return
 

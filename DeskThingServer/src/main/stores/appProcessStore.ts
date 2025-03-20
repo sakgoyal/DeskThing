@@ -1,11 +1,11 @@
 import {
-  AppProcessEvents,
+  AppDataFilters,
   AppProcessEventListener,
+  AppProcessEvents,
   AppProcessListener,
-  AppProcessStoreClass,
-  AppDataFilters
+  AppProcessStoreClass
 } from '@shared/stores/appProcessStore'
-import { App, AppProcessData, SEND_TYPES, ToAppProcess, ToServerData } from '@DeskThing/types'
+import { App, AppProcessData, SEND_TYPES, ToAppProcess, ToServerData } from '@deskthing/types'
 import appProcessPath from '@utilities/appProcess?modulePath'
 import { app /*, utilityProcess */ } from 'electron'
 import { Worker } from 'node:worker_threads'

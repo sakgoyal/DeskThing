@@ -14,7 +14,7 @@ import {
 import Button from '@renderer/components/Button'
 import { useSettingsStore } from '@renderer/stores'
 import { Client, LoggingData } from '@shared/types'
-import React, { useState, useRef, useEffect } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import Overlay from './Overlay'
 import DownloadNotification from './DownloadNotification'
 
@@ -387,7 +387,7 @@ const ClientDetailsOverlay: React.FC<ClientDetailsOverlayProps> = ({ onClose, cl
             >
               <IconReload
                 className={
-                  animatingIcons.restart && '-rotate-[360deg] transition-transform duration-500'
+                  animatingIcons.restart ? '-rotate-[360deg] transition-transform duration-500' : ''
                 }
               />
               <p className="bg-black group-hover:block hidden text-nowrap">Restart</p>

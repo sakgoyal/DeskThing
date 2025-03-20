@@ -13,15 +13,15 @@
  */
 import {
   AppIPCData,
-  UtilityIPCData,
-  ServerIPCData,
   ClientIPCData,
   IPCData,
-  UTILITY_TYPES
+  ServerIPCData,
+  UTILITY_TYPES,
+  UtilityIPCData
 } from '@shared/types'
 import { App } from '@deskthing/types'
-import { app, shell, BrowserWindow, ipcMain, Tray, Menu, nativeImage } from 'electron'
-import { join, resolve, dirname } from 'node:path'
+import { app, BrowserWindow, ipcMain, Menu, nativeImage, shell, Tray } from 'electron'
+import { dirname, join, resolve } from 'node:path'
 import icon from '../../resources/icon.png?asset'
 import dotenv from 'dotenv'
 import { nextTick } from 'node:process'
@@ -537,4 +537,4 @@ async function sendIpcData({ type, payload, window }: ServerIPCData): Promise<vo
   }
 }
 
-export { sendIpcData, createMainWindow, createClientWindow, handleUrl }
+export { createClientWindow, createMainWindow, handleUrl, sendIpcData }

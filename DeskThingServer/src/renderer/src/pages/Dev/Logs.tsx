@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef, useMemo, memo } from 'react'
+import React, { memo, useEffect, useMemo, useRef, useState } from 'react'
 import useLogStore from '../../stores/logStore'
 import Sidebar from '@renderer/nav/Sidebar'
 import MainElement from '@renderer/nav/MainElement'
@@ -14,7 +14,7 @@ import {
 } from '@renderer/assets/icons'
 import { useReward } from 'react-rewards'
 import { Log } from '@shared/types'
-import { LOGGING_LEVELS } from '@DeskThing/types'
+import { LOGGING_LEVELS } from '@deskthing/types'
 
 const colorMap = {
   [LOGGING_LEVELS.ERROR]: 'text-red-500',
@@ -183,9 +183,7 @@ const Logs: React.FC = () => {
 const LogItem = memo(
   ({ log, setHoveredLog }: { log: Log; setHoveredLog: (log: Error | null) => void }) => (
     <li
-      className={`group text-sm hover:bg-zinc-900 items-center flex overflow-auto justify-between w-full font-geistMono break-words whitespace-pre-wrap ${
-        colorMap[log.type]
-      }`}
+      className={`group text-sm hover:bg-zinc-900 items-center flex overflow-auto justify-between w-full font-geistMono break-words whitespace-pre-wrap ${colorMap[log.type]}`}
       onClick={() => setHoveredLog(log.options?.error || null)}
     >
       <p className="break-words">{log.log}</p>

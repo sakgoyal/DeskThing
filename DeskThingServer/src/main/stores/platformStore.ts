@@ -1,7 +1,7 @@
 import {
-  PlatformInterface,
-  PlatformEvent,
   PlatformConnectionOptions,
+  PlatformEvent,
+  PlatformInterface,
   PlatformStatus
 } from '@shared/interfaces/platform'
 import {
@@ -13,7 +13,7 @@ import {
   SEND_TYPES,
   SendToDeviceFromServerPayload,
   ToDeviceData
-} from '@DeskThing/types'
+} from '@deskthing/types'
 import Logger from '@server/utils/logger'
 import { Client } from '@shared/types'
 import {

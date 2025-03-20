@@ -1,4 +1,4 @@
-import { describe, expect, it, vi, beforeEach, afterEach } from 'vitest'
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { TaskStore } from '../../../src/main/stores/taskStore'
 import { AppDataStoreClass } from '@shared/stores/appDataStore'
 import { AppStoreClass } from '@shared/stores/appStore'

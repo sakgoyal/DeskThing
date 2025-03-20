@@ -1,6 +1,6 @@
 import { isValidAction } from '../mappings/mapsValidation'
-import { Step, STEP_TYPES, Task } from '@DeskThing/types'
-import { TaskReference, FullTaskList } from '@shared/types'
+import { Step, STEP_TYPES, Task } from '@deskthing/types'
+import { FullTaskList, TaskReference } from '@shared/types'
 
 export function isValidTaskList(taskList: unknown): asserts taskList is FullTaskList {
   if (!taskList || typeof taskList !== 'object') throw new Error('TaskList must be an object')

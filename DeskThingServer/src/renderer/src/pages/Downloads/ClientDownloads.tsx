@@ -2,19 +2,19 @@ import React, { useState } from 'react'
 import Sidebar from '@renderer/nav/Sidebar'
 import Button from '@renderer/components/Button'
 import {
+  IconDownload,
   IconGear,
   IconLink,
-  IconUpload,
-  IconDownload,
   IconLoading,
-  IconRefresh
+  IconRefresh,
+  IconUpload
 } from '@renderer/assets/icons'
 import { useClientStore, useGithubStore, usePageStore } from '@renderer/stores'
 import MainElement from '@renderer/nav/MainElement'
 import DownloadNotification from '@renderer/overlays/DownloadNotification'
 import { useSearchParams } from 'react-router-dom'
 import useTaskStore from '@renderer/stores/taskStore'
-import { ClientReleaseMeta } from '@DeskThing/types'
+import { ClientReleaseMeta } from '@deskthing/types'
 
 const ClientDownloads: React.FC = () => {
   const clientReleases = useGithubStore((githubStore) => githubStore.clientReleases)

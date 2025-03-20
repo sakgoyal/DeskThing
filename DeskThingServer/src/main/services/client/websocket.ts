@@ -12,7 +12,7 @@ import {
   SettingsType,
   ServerEvent,
   EventPayload
-} from '@DeskThing/types'
+} from '@deskthing/types'
 import { Client, ServerIPCData, Settings } from '@shared/types'
 import { HandleDeviceData } from '../../handlers/deviceHandler'
 import crypto from 'crypto'

@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { PageProps } from '..'
 import useMappingStore from '@renderer/stores/mappingStore'
-import { App, Key } from '@DeskThing/types'
+import { App, Key } from '@deskthing/types'
 import { ActionIcon } from '../components/ActionIcon'
 import Button from '@renderer/components/Button'
 import { useAppStore } from '@renderer/stores'
@@ -11,7 +11,7 @@ const AppMappingsPage: React.FC<PageProps> = ({
   setSelectedKey,
   currentMapping,
   mode
-}: PageProps) => {
+}) => {
   const keys = useMappingStore((state) => state.keys)
   const [availableKeys, setAvailableKeys] = useState<Key[]>([])
   const [selectedApp, setSelectedApp] = useState<App | { name: string } | undefined>({

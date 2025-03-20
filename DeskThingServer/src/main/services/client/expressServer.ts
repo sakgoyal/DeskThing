@@ -1,6 +1,6 @@
 // console.log('[ClientExpress Service] Starting')
 // import Logger from '@server/utils/logger'
-// import { LOGGING_LEVELS } from '@DeskThing/types'
+// import { LOGGING_LEVELS } from '@deskthing/types'
 // import { app, app as electronApp } from 'electron'
 // import { join } from 'path'
 // import { getAppFilePath } from '../apps/appUtils'

@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { PageProps } from '..'
 import useMappingStore from '@renderer/stores/mappingStore'
-import { Key } from '@DeskThing/types'
+import { Key } from '@deskthing/types'
 import { ActionIcon } from '../components/ActionIcon'
 import Button from '@renderer/components/Button'
 import { IconArrowDown, IconLink, IconMusic } from '@renderer/assets/icons'
@@ -21,7 +21,7 @@ const MiniplayerPage: React.FC<PageProps> = ({
   setSelectedKey,
   currentMapping,
   mode
-}: PageProps) => {
+}) => {
   const keys = useMappingStore((state) => state.keys)
   const [miniplayerKeys, setMiniplayerKeys] = useState<Key[]>([])
 

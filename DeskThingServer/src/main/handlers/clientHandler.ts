@@ -1,11 +1,11 @@
 console.log('[Auth Handler] Starting')
 import {
   ClientManifest,
-  LOGGING_LEVELS,
   FromDeskthingToDeviceEvents,
+  LOGGING_LEVELS,
   SendToDeviceFromServerPayload
-} from '@DeskThing/types'
-import { ReplyFn, ClientIPCData } from '@shared/types'
+} from '@deskthing/types'
+import { ClientIPCData, ReplyFn } from '@shared/types'
 import Logger from '@server/utils/logger'
 import { handleAdbCommands } from './adbHandler'
 import {
@@ -186,7 +186,7 @@ export const clientHandler: Record<
  * @param replyFn - The reply function to be used for logging the progress and errors.
  * @returns A Promise that resolves when the web app has been successfully downloaded and processed.
  */
-const handleUrl = async (data, replyFn: ReplyFn): Promise<void> => {
+async function handleUrl(data: { payload: string }, replyFn: ReplyFn): Promise<void> {
   try {
     replyFn('logging', {
       status: true,

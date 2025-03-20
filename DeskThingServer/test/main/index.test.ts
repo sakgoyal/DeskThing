@@ -1,6 +1,6 @@
-import { describe, expect, it, vi, beforeEach, afterEach } from 'vitest'
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { BrowserWindow } from 'electron'
-import { createMainWindow, createClientWindow, sendIpcData } from '../../src/main'
+import { createClientWindow, createMainWindow, sendIpcData } from '../../src/main'
 import { ServerIPCData } from '@shared/types'
 
 // Mock electron modules
@@ -13,7 +13,7 @@ vi.mock('electron', () => {
             {
               responseHeaders: {}
             },
-            (details) => details
+            (details: unknown) => details
           )
         })
       }

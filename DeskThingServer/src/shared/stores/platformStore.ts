@@ -1,9 +1,9 @@
 import {
-  PlatformInterface,
   PlatformConnectionOptions,
+  PlatformInterface,
   PlatformStatus
 } from '@shared/interfaces/platform'
-import { SendToDeviceFromServerPayload, SocketData } from '@DeskThing/types'
+import { SendToDeviceFromServerPayload, SocketData } from '@deskthing/types'
 import { Client } from '@shared/types'
 import { StoreInterface } from '@shared/interfaces/storeInterface'
 

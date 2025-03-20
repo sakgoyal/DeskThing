@@ -1,38 +1,38 @@
 import { contextBridge, ipcRenderer, Task } from 'electron'
 import { electronAPI } from '@electron-toolkit/preload'
 import {
-  App,
   Action,
   ActionReference,
+  App,
   AppDataInterface,
-  AppSettings,
-  ClientManifest,
-  Key,
-  SocketData,
-  Step,
-  TaskList,
   AppReleaseCommunity,
   AppReleaseMeta,
-  EventPayload,
   AppReleaseSingleMeta,
-  Profile,
+  AppSettings,
   ButtonMapping,
-  ClientReleaseMeta
-} from '@DeskThing/types'
+  ClientManifest,
+  ClientReleaseMeta,
+  EventPayload,
+  Key,
+  Profile,
+  SocketData,
+  Step,
+  TaskList
+} from '@deskthing/types'
 import {
-  Client,
-  Log,
+  ADBClient,
+  APP_TYPES,
   AppReturnData,
   Button,
+  Client,
   FeedbackReport,
   IPC_HANDLERS,
-  Settings,
   IPCData,
+  Log,
+  Settings,
   StagedAppManifest,
   SystemInfo,
-  UTILITY_TYPES,
-  APP_TYPES,
-  ADBClient
+  UTILITY_TYPES
 } from '@shared/types'
 import { platform } from 'os'
 
@@ -678,6 +678,6 @@ if (process.contextIsolated) {
     console.error(error)
   }
 } else {
-  // @ts-ignore (define in dts)
+  // @ts-expect-error (define in dts)
   window.electron = { ...electronAPI, ...api }
 }

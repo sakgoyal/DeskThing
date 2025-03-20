@@ -2,7 +2,7 @@ import { IconX } from '@renderer/assets/icons'
 import Button from '@renderer/components/Button'
 import ErrorBoundary from '@renderer/components/ErrorBoundary'
 import FeedbackButton from '@renderer/components/FeedbackButton'
-import React, { useRef, useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 
 interface DownloadConfirmationProps {
   onClose: () => void

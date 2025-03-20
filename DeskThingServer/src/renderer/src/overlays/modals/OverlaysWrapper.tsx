@@ -24,11 +24,9 @@ const overlays = {
   setup: SetupOverlay
 }
 
-const OverlayWrapper: React.FC<React.PropsWithChildren> = ({
-  children
-}: React.PropsWithChildren) => {
+const OverlayWrapper: React.FC<React.PropsWithChildren> = ({ children }) => {
   const [searchParams] = useSearchParams()
-  const [activeOverlays, setActiveOverlays] = useState<string[]>([])
+  const [activeOverlays, setActiveOverlays] = useState<(keyof typeof overlays)[]>([])
   const update = useUpdateStore((state) => state.update)
   const currentTask = useTaskStore((state) => state.currentTask)
   const activeRequests = useSettingsStore((state) => state.activeRequests)
@@ -36,7 +34,7 @@ const OverlayWrapper: React.FC<React.PropsWithChildren> = ({
   useEffect(() => {
     const newActiveOverlays = Object.keys(overlays).filter(
       (key) => searchParams.get(key) === 'true'
-    )
+    ) as (keyof typeof overlays)[]
     setActiveOverlays(newActiveOverlays)
   }, [searchParams])
 

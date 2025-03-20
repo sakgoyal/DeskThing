@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { describe, expect, it, vi, beforeEach } from 'vitest'
+import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { AppProcessStore } from '../../../src/main/stores/appProcessStore'
 import { AppProcessEvents } from '@shared/stores/appProcessStore'
 import { App, SEND_TYPES } from '@deskthing/types'

@@ -1,8 +1,8 @@
 import {
-  AppReleaseMeta,
-  ClientReleaseMeta,
   AppReleaseCommunity,
-  AppReleaseSingleMeta
+  AppReleaseMeta,
+  AppReleaseSingleMeta,
+  ClientReleaseMeta
 } from '@deskthing/types'
 import { GithubRelease } from '../types/types'
 import { StoreInterface } from '@shared/interfaces/storeInterface'

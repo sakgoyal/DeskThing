@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import { useClientStore } from '@renderer/stores'
-import { ClientManifest } from '@DeskThing/types'
+import { ClientManifest } from '@deskthing/types'
 import Button from '@renderer/components/Button'
-import { IconToggle, IconSave, IconLoading } from '@renderer/assets/icons'
+import { IconLoading, IconSave, IconToggle } from '@renderer/assets/icons'
 
 const ClientSettings: React.FC = () => {
   const clientSettings = useClientStore((state) => state.clientManifest)

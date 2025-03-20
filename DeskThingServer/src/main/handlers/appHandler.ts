@@ -8,11 +8,11 @@
  */
 console.log('[App Handler] Starting')
 import path from 'path'
-import { App, LOGGING_LEVELS, AppSettings, SavedData } from '@DeskThing/types'
+import { App, AppSettings, LOGGING_LEVELS, SavedData } from '@deskthing/types'
 import { APP_TYPES, AppHandlerReturnType, AppIPCData, ReplyFn } from '@shared/types'
 import { storeProvider } from '@server/stores/storeProvider'
 import Logger from '@server/utils/logger'
-import { dialog, BrowserWindow } from 'electron'
+import { BrowserWindow, dialog } from 'electron'
 
 /**
  * The `appHandler` object contains functions for handling different types of app-related IPC (Inter-Process Communication) data.

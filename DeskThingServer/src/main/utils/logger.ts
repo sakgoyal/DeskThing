@@ -6,8 +6,8 @@
 import fs, { existsSync } from 'fs'
 import { join } from 'path'
 import { app } from 'electron'
-import { LOGGING_LEVELS } from '@DeskThing/types'
-import { Log, LOG_FILTER, ReplyData, ReplyFn, LoggingOptions } from '@shared/types'
+import { LOGGING_LEVELS } from '@deskthing/types'
+import { Log, LOG_FILTER, LoggingOptions, ReplyData, ReplyFn } from '@shared/types'
 import { access, mkdir, readFile, rename, writeFile } from 'fs/promises'
 import { SettingsStoreClass } from '@shared/stores/settingsStore'
 

@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { describe, expect, it, vi, beforeEach, afterEach } from 'vitest'
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { GithubStore } from '../../../src/main/stores/githubStore'
-import { getLatestRelease, fetchAssetContent } from '@server/services/github/githubService'
+import { fetchAssetContent, getLatestRelease } from '@server/services/github/githubService'
 import { readAppReleaseData } from '@server/services/files/releaseFileService'
 import Logger from '@server/utils/logger'
 
@@ -58,7 +58,6 @@ describe('GithubStore', () => {
   })
 
   describe('Release Management', () => {
-
     it('should remove app release successfully', async () => {
       const mockRelease = {
         type: 'single',

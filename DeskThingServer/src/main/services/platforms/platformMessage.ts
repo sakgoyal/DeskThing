@@ -1,13 +1,13 @@
 import { storeProvider } from '@server/stores/storeProvider'
 import {
-  SocketData,
   ClientManifest,
-  SettingsType,
+  CombinedMappings,
   EventPayload,
   FromDeviceDataEvents,
   FromDeskthingToDeviceEvents,
-  CombinedMappings
-} from '@DeskThing/types'
+  SettingsType,
+  SocketData
+} from '@deskthing/types'
 import Logger from '@server/utils/logger'
 import { Client } from '@shared/types'
 import { PlatformInterface } from '@shared/interfaces/platform'

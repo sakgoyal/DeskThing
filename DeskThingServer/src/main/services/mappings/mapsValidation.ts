@@ -2,13 +2,13 @@ import Logger from '@server/utils/logger'
 import {
   Action,
   ActionReference,
+  ButtonMapping,
   EventMode,
   Key,
   LOGGING_LEVELS,
-  ButtonMapping,
   Profile
-} from '@DeskThing/types'
-import { MappingFileStructure, LoggingOptions } from '@shared/types'
+} from '@deskthing/types'
+import { LoggingOptions, MappingFileStructure } from '@shared/types'
 
 export const validMappingExists: (
   mapping: MappingFileStructure | unknown,

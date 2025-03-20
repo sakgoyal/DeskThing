@@ -6,7 +6,7 @@ import * as fs from 'fs'
 import { app, net } from 'electron'
 import { handleAdbCommands } from './adbHandler'
 import { Client, ReplyData, ReplyFn } from '@shared/types'
-import { ClientConnectionMethod, ClientManifest, LOGGING_LEVELS } from '@DeskThing/types'
+import { ClientConnectionMethod, ClientManifest, LOGGING_LEVELS } from '@deskthing/types'
 import { storeProvider } from '@server/stores/storeProvider'
 
 /**
@@ -83,35 +83,33 @@ export const configureDevice = async (deviceId: string, reply?: ReplyFn): Promis
   try {
     if (settings && settings.devicePort) {
       console.error('Settings not found')
-      reply && reply('logging', { status: true, data: 'Opening Port...', final: false })
+      reply?.('logging', { status: true, data: 'Opening Port...', final: false })
       try {
         const response = await handleAdbCommands(
           `-s ${deviceId} reverse tcp:${settings.devicePort} tcp:${settings.devicePort}`,
           reply
         )
-        reply && reply('logging', { status: true, data: response || 'Port Opened', final: false })
+        reply?.('logging', { status: true, data: response || 'Port Opened', final: false })
       } catch {
-        reply && reply('logging', { status: false, data: 'Unable to open port!', final: false })
+        reply?.('logging', { status: false, data: 'Unable to open port!', final: false })
       }
     } else {
-      reply &&
-        reply('logging', {
-          status: false,
-          data: 'Unable to open port!',
-          error: 'Device Port not found in settings',
-          final: false
-        })
+      reply?.('logging', {
+        status: false,
+        data: 'Unable to open port!',
+        error: 'Device Port not found in settings',
+        final: false
+      })
     }
   } catch (error) {
     console.error('Error opening device port:', error)
     if (error instanceof Error) {
-      reply &&
-        reply('logging', {
-          status: false,
-          data: 'Unable to open port!',
-          error: error.message,
-          final: false
-        })
+      reply?.('logging', {
+        status: false,
+        data: 'Unable to open port!',
+        error: error.message,
+        final: false
+      })
     }
   }
 
@@ -120,7 +118,7 @@ export const configureDevice = async (deviceId: string, reply?: ReplyFn): Promis
     const clientExists = await checkForClient(reply)
 
     if (!clientExists) {
-      reply && reply('logging', { status: true, data: 'Fetching Latest Client...', final: false })
+      reply?.('logging', { status: true, data: 'Fetching Latest Client...', final: false })
       const clientReleases = await githubStore.getClientReleases()
 
       const latestRelease = clientReleases?.sort(
@@ -129,7 +127,7 @@ export const configureDevice = async (deviceId: string, reply?: ReplyFn): Promis
 
       // Download it
       if (latestRelease) {
-        reply && reply('logging', { status: true, data: 'Downloading Client...', final: false })
+        reply?.('logging', { status: true, data: 'Downloading Client...', final: false })
         await HandleWebappZipFromUrl(reply, latestRelease.updateUrl)
 
         await new Promise((resolve) => {
@@ -139,43 +137,38 @@ export const configureDevice = async (deviceId: string, reply?: ReplyFn): Promis
           }, 5000)
         })
       } else {
-        reply &&
-          reply('logging', {
-            status: false,
-            data: 'No client asset found in latest releases',
-            final: false
-          })
+        reply?.('logging', {
+          status: false,
+          data: 'No client asset found in latest releases',
+          final: false
+        })
       }
     }
   } catch (error) {
     if (error instanceof Error) {
-      reply &&
-        reply('logging', {
-          status: false,
-          data: 'Unable to check for client!',
-          error: error.message,
-          final: false
-        })
+      reply?.('logging', {
+        status: false,
+        data: 'Unable to check for client!',
+        error: error.message,
+        final: false
+      })
     } else {
-      reply &&
-        reply('logging', {
-          status: false,
-          data: 'Unable to check for client!',
-          error: 'Unknown error',
-          final: false
-        })
+      reply?.('logging', {
+        status: false,
+        data: 'Unable to check for client!',
+        error: 'Unknown error',
+        final: false
+      })
     }
     console.error('Error checking for client:', error)
   }
 
   // Push the webapp to the device
   try {
-    reply &&
-      reply('logging', { status: true, data: 'Fetching Device Manifest Version...', final: false })
+    reply?.('logging', { status: true, data: 'Fetching Device Manifest Version...', final: false })
     const deviceManifestVersion = await getDeviceManifestVersion(deviceId)
 
-    reply &&
-      reply('logging', { status: true, data: 'Fetching Client Manifest Version...', final: false })
+    reply?.('logging', { status: true, data: 'Fetching Client Manifest Version...', final: false })
     const clientManifest = await getClientManifest(reply)
     if (
       clientManifest &&
@@ -183,7 +176,7 @@ export const configureDevice = async (deviceId: string, reply?: ReplyFn): Promis
       deviceManifestVersion !== clientManifest.version
     ) {
       try {
-        reply && reply('logging', { status: true, data: 'Pushing client...', final: false })
+        reply?.('logging', { status: true, data: 'Pushing client...', final: false })
         // Give a 30 second timeout to flash the webapp
         await Promise.race([
           HandlePushWebApp(deviceId, reply),
@@ -192,63 +185,57 @@ export const configureDevice = async (deviceId: string, reply?: ReplyFn): Promis
           )
         ])
       } catch (error) {
-        reply &&
-          reply('logging', {
-            status: false,
-            data: 'Unable to push webapp!',
-            error: typeof error == 'string' ? error : 'Unknown Error',
-            final: false
-          })
-      }
-    } else {
-      reply &&
-        reply('logging', {
-          status: true,
-          data: 'Device has the same webapp version or doesnt exist!',
+        reply?.('logging', {
+          status: false,
+          data: 'Unable to push webapp!',
+          error: typeof error == 'string' ? error : 'Unknown Error',
           final: false
         })
+      }
+    } else {
+      reply?.('logging', {
+        status: true,
+        data: 'Device has the same webapp version or doesnt exist!',
+        final: false
+      })
     }
   } catch (error) {
     if (error instanceof Error) {
-      reply &&
-        reply('logging', {
-          status: false,
-          error: error.message,
-          data: 'Error pushing webapp!',
-          final: false
-        })
+      reply?.('logging', {
+        status: false,
+        error: error.message,
+        data: 'Error pushing webapp!',
+        final: false
+      })
     } else {
-      reply &&
-        reply('logging', {
-          status: false,
-          error: 'Unknown Error',
-          data: 'Error pushing webapp!',
-          final: false
-        })
+      reply?.('logging', {
+        status: false,
+        error: 'Unknown Error',
+        data: 'Error pushing webapp!',
+        final: false
+      })
     }
     console.error('Error pushing webapp', error)
   }
 
   try {
-    reply && reply('logging', { status: true, data: 'Restarting Chromium', final: false })
+    reply?.('logging', { status: true, data: 'Restarting Chromium', final: false })
     await handleAdbCommands(`-s ${deviceId} shell supervisorctl restart chromium`, reply)
   } catch (error) {
     if (error instanceof Error) {
-      reply &&
-        reply('logging', {
-          status: false,
-          data: 'Unable to restart chromium!',
-          error: error.message,
-          final: false
-        })
+      reply?.('logging', {
+        status: false,
+        data: 'Unable to restart chromium!',
+        error: error.message,
+        final: false
+      })
     } else {
-      reply &&
-        reply('logging', {
-          status: false,
-          data: 'Unable to restart chromium!',
-          error: 'Unknown Error',
-          final: false
-        })
+      reply?.('logging', {
+        status: false,
+        data: 'Unable to restart chromium!',
+        error: 'Unknown Error',
+        final: false
+      })
     }
     console.error('Error restarting chromium', error)
   }
@@ -283,13 +270,12 @@ export const HandlePushWebApp = async (
 
     const clientExists = await checkForClient(reply)
     if (!clientExists) {
-      reply &&
-        reply('logging', {
-          status: false,
-          data: 'Unable to push webapp!',
-          error: 'Client not found!',
-          final: false
-        })
+      reply?.('logging', {
+        status: false,
+        data: 'Unable to push webapp!',
+        error: 'Client not found!',
+        final: false
+      })
       Logger.log(
         LOGGING_LEVELS.ERROR,
         '[HandlePushWebApp] Client Not Found! Ensure it is downloaded'
@@ -298,24 +284,21 @@ export const HandlePushWebApp = async (
     }
 
     let response
-    reply && reply('logging', { status: true, data: 'Remounting...', final: false })
+    reply?.('logging', { status: true, data: 'Remounting...', final: false })
     response = await handleAdbCommands(`-s ${deviceId} shell mount -o remount,rw /`)
-    reply && reply('logging', { status: true, data: response || 'Writing to tmp...', final: false })
+    reply?.('logging', { status: true, data: response || 'Writing to tmp...', final: false })
     response = await handleAdbCommands(
       `-s ${deviceId} shell mv /usr/share/qt-superbird-app/webapp /tmp/webapp-orig`
     )
-    reply &&
-      reply('logging', { status: true, data: response || 'Moving from tmp...', final: false })
+    reply?.('logging', { status: true, data: response || 'Moving from tmp...', final: false })
     response = await handleAdbCommands(
       `-s ${deviceId} shell mv /tmp/webapp-orig /usr/share/qt-superbird-app/`
     )
 
-    reply &&
-      reply('logging', { status: true, data: response || 'Removing old app...', final: false })
+    reply?.('logging', { status: true, data: response || 'Removing old app...', final: false })
     response = await handleAdbCommands(`-s ${deviceId} shell rm -r /tmp/webapp-orig`)
 
-    reply &&
-      reply('logging', { status: true, data: response || 'Pushing client ID...', final: false })
+    reply?.('logging', { status: true, data: response || 'Pushing client ID...', final: false })
     try {
       await handleClientManifestUpdate(
         {
@@ -326,30 +309,26 @@ export const HandlePushWebApp = async (
       )
     } catch (error) {
       console.error('Error updating client manifest:', error)
-      reply &&
-        reply('logging', {
-          status: false,
-          data: 'There has been an error updating the client manifests ID.',
-          final: false,
-          error: `${error}`
-        })
+      reply?.('logging', {
+        status: false,
+        data: 'There has been an error updating the client manifests ID.',
+        final: false,
+        error: `${error}`
+      })
     }
 
-    reply &&
-      reply('logging', { status: true, data: response || 'Pushing new app...', final: false })
+    reply?.('logging', { status: true, data: response || 'Pushing new app...', final: false })
     response = await handleAdbCommands(
       `-s ${deviceId} push "${extractDir}/" /usr/share/qt-superbird-app/webapp`
     )
 
-    reply &&
-      reply('logging', { status: true, data: response || 'Restarting Chromium', final: false })
+    reply?.('logging', { status: true, data: response || 'Restarting Chromium', final: false })
     response = await handleAdbCommands(`-s ${deviceId} shell supervisorctl restart chromium`)
 
-    reply && reply('logging', { status: true, data: response || 'Syncing Files', final: false })
+    reply?.('logging', { status: true, data: response || 'Syncing Files', final: false })
     response = await handleAdbCommands(`-s ${deviceId} shell sync`)
 
-    reply &&
-      reply('logging', { status: true, data: response || 'Cleaning up device ID...', final: false })
+    reply?.('logging', { status: true, data: response || 'Cleaning up device ID...', final: false })
     try {
       await handleClientManifestUpdate(
         {
@@ -360,33 +339,30 @@ export const HandlePushWebApp = async (
       )
     } catch (error) {
       console.error('Error updating cleaning manifest:', error)
-      reply &&
-        reply('logging', {
-          status: false,
-          data: 'There has been an error cleaning the client manifests ID.',
-          final: false,
-          error: `${error}`
-        })
+      reply?.('logging', {
+        status: false,
+        data: 'There has been an error cleaning the client manifests ID.',
+        final: false,
+        error: `${error}`
+      })
     }
 
-    reply && reply('logging', { status: true, data: await response, final: false })
+    reply?.('logging', { status: true, data: await response, final: false })
   } catch (Exception) {
     if (Exception instanceof Error) {
-      reply &&
-        reply('logging', {
-          status: false,
-          data: 'Error while trying to push webapp!',
-          final: false,
-          error: Exception.message
-        })
+      reply?.('logging', {
+        status: false,
+        data: 'Error while trying to push webapp!',
+        final: false,
+        error: Exception.message
+      })
     } else {
-      reply &&
-        reply('logging', {
-          status: false,
-          data: 'Error while trying to push webapp!',
-          final: false,
-          error: `${Exception}`
-        })
+      reply?.('logging', {
+        status: false,
+        data: 'Error while trying to push webapp!',
+        final: false,
+        error: `${Exception}`
+      })
     }
     Logger.log(LOGGING_LEVELS.ERROR, 'HandlePushWebApp encountered the error ' + Exception)
   }
@@ -413,7 +389,7 @@ export const HandleWebappZipFromUrl = async (
 
   const AdmZip = await import('adm-zip')
 
-  reply && reply('logging', { status: true, data: 'Downloading...', final: false })
+  reply?.('logging', { status: true, data: 'Downloading...', final: false })
 
   const request = net.request(zipFileUrl)
 
@@ -442,19 +418,18 @@ export const HandleWebappZipFromUrl = async (
           Logger.info(`Successfully extracted ${zipFileUrl} to ${extractDir}`)
 
           // Notify success to the frontend
-          reply && reply('logging', { status: true, data: 'Success!', final: false })
+          reply?.('logging', { status: true, data: 'Success!', final: false })
         } catch (error) {
           console.error('Error extracting zip file:', error)
           Logger.log(LOGGING_LEVELS.ERROR, `Error extracting zip file: ${error}`)
 
           // Notify failure to the frontend
-          reply &&
-            reply('logging', {
-              status: false,
-              data: 'Failed to extract!',
-              final: false,
-              error: error instanceof Error ? error.message : String(error)
-            })
+          reply?.('logging', {
+            status: false,
+            data: 'Failed to extract!',
+            final: false,
+            error: error instanceof Error ? error.message : String(error)
+          })
         }
       })
       response.on('error', (error) => {
@@ -462,13 +437,12 @@ export const HandleWebappZipFromUrl = async (
         Logger.log(LOGGING_LEVELS.ERROR, `Error downloading zip file: ${error}`)
 
         // Notify failure to the frontend
-        reply &&
-          reply('logging', {
-            status: false,
-            data: 'ERR Downloading file!',
-            final: false,
-            error: error.message
-          })
+        reply?.('logging', {
+          status: false,
+          data: 'ERR Downloading file!',
+          final: false,
+          error: error.message
+        })
       })
     } else {
       const errorMessage = `Failed to download zip file: ${response.statusCode}`
@@ -476,13 +450,12 @@ export const HandleWebappZipFromUrl = async (
       Logger.log(LOGGING_LEVELS.ERROR, errorMessage)
 
       // Notify failure to the frontend
-      reply &&
-        reply('logging', {
-          status: false,
-          data: 'Failed to download zip file!',
-          final: false,
-          error: errorMessage
-        })
+      reply?.('logging', {
+        status: false,
+        data: 'Failed to download zip file!',
+        final: false,
+        error: errorMessage
+      })
     }
   })
 
@@ -491,13 +464,12 @@ export const HandleWebappZipFromUrl = async (
     Logger.log(LOGGING_LEVELS.ERROR, `Error sending request: ${error}`)
 
     // Notify failure to the frontend
-    reply &&
-      reply('logging', {
-        status: false,
-        data: 'Failed to download zip file!',
-        final: false,
-        error: error.message
-      })
+    reply?.('logging', {
+      status: false,
+      data: 'Failed to download zip file!',
+      final: false,
+      error: error.message
+    })
   })
 
   request.end()
@@ -518,7 +490,7 @@ export const handleClientManifestUpdate = async (
   const extractDir = join(userDataPath, 'webapp')
   const manifestPath = join(extractDir, 'manifest.js')
 
-  reply && reply('logging', { status: true, data: 'Updating manifest...', final: false })
+  reply?.('logging', { status: true, data: 'Updating manifest...', final: false })
   try {
     // Ensure the directory exists
     await fs.promises.mkdir(extractDir, { recursive: true })
@@ -538,7 +510,7 @@ export const handleClientManifestUpdate = async (
     // Write the updated manifest to the file
     await fs.promises.writeFile(manifestPath, manifestContent, 'utf8')
     Logger.info('Manifest file updated successfully')
-    reply && reply('logging', { status: true, data: 'Manifest Updated!', final: false })
+    reply?.('logging', { status: true, data: 'Manifest Updated!', final: false })
     Logger.info('DEVICE HANDLER: Manifest file updated successfully')
   } catch (error) {
     console.error('Error updating manifest file:', error)
@@ -555,7 +527,7 @@ export const handleClientManifestUpdate = async (
 export const checkForClient = async (
   reply?: (channel: string, data: ReplyData) => void
 ): Promise<boolean> => {
-  reply && reply('logging', { status: true, data: 'Checking for client...', final: false })
+  reply?.('logging', { status: true, data: 'Checking for client...', final: false })
   const userDataPath = app.getPath('userData')
   const extractDir = join(userDataPath, 'webapp')
   const manifestPath = join(extractDir, 'manifest.js')
@@ -563,12 +535,11 @@ export const checkForClient = async (
   const manifestExists = fs.existsSync(manifestPath)
   if (!manifestExists) {
     Logger.debug('Manifest file not found')
-    reply &&
-      reply('logging', {
-        status: false,
-        data: 'Manifest file not found',
-        final: false
-      })
+    reply?.('logging', {
+      status: false,
+      data: 'Manifest file not found',
+      final: false
+    })
     Logger.log(LOGGING_LEVELS.ERROR, 'DEVICE HANDLER: Manifest file not found')
   }
   return manifestExists
@@ -589,25 +560,23 @@ export const getClientManifest = async (
   Logger.debug('manifestPath: ' + manifestPath)
   if (!fs.existsSync(manifestPath)) {
     Logger.warn('DEVICE HANDLER: Manifest file not found')
-    reply &&
-      reply('logging', {
-        status: false,
-        error: 'Unable to find the client manifest!',
-        data: 'Manifest file not found',
-        final: false
-      })
+    reply?.('logging', {
+      status: false,
+      error: 'Unable to find the client manifest!',
+      data: 'Manifest file not found',
+      final: false
+    })
     Logger.log(
       LOGGING_LEVELS.ERROR,
       'DEVICE HANDLER: Client is not detected or downloaded! Please download the client! (downloads -> client)'
     )
     return null
   }
-  reply &&
-    reply('logging', {
-      status: true,
-      data: 'Manifest file read successfully',
-      final: false
-    })
+  reply?.('logging', {
+    status: true,
+    data: 'Manifest file read successfully',
+    final: false
+  })
 
   try {
     const data = await fs.promises.readFile(manifestPath, 'utf8')
@@ -617,12 +586,11 @@ export const getClientManifest = async (
     const jsonData = data.substring(jsonStart, jsonEnd + 1)
 
     const manifest: ClientManifest = JSON.parse(jsonData)
-    reply &&
-      reply('logging', {
-        status: true,
-        data: 'Manifest loaded!',
-        final: false
-      })
+    reply?.('logging', {
+      status: true,
+      data: 'Manifest loaded!',
+      final: false
+    })
     Logger.debug('DEVICE HANDLER: Manifest file read successfully')
     return manifest
   } catch (error) {
@@ -631,13 +599,12 @@ export const getClientManifest = async (
       LOGGING_LEVELS.ERROR,
       'DEVICE HANDLER: Error reading or parsing manifest file: ' + error
     )
-    reply &&
-      reply('logging', {
-        status: false,
-        data: 'Unable to read Server Manifest file',
-        final: false,
-        error: 'Unable to read manifest file' + error
-      })
+    reply?.('logging', {
+      status: false,
+      data: 'Unable to read Server Manifest file',
+      final: false,
+      error: 'Unable to read manifest file' + error
+    })
     return null
   }
 }

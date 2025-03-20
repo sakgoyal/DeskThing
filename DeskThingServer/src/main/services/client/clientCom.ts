@@ -1,4 +1,4 @@
-import { FromDeskthingToDeviceEvents, FromDeviceDataEvents } from '@DeskThing/types'
+import { AppSettings, FromDeskthingToDeviceEvents, FromDeviceDataEvents } from '@deskthing/types'
 import Logger from '@server/utils/logger'
 import { storeProvider } from '@server/stores/storeProvider'
 
@@ -87,7 +87,7 @@ export const sendSettingsData = async (clientId?: string): Promise<void> => {
     if (!appData) {
       throw new Error('Invalid configuration format')
     }
-    const settings = {}
+    const settings: Record<string, AppSettings> = {}
 
     if (appData) {
       await Promise.all(

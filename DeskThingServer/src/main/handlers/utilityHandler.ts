@@ -1,15 +1,15 @@
 console.log('[Utility Handler] Starting')
-import { LOGGING_LEVELS } from '@DeskThing/types'
+import { LOGGING_LEVELS } from '@deskthing/types'
 import {
-  ReplyFn,
-  UtilityIPCData,
   Client,
+  ReplyFn,
+  UTILITY_TYPES,
   UtilityHandlerReturnType,
-  UTILITY_TYPES
+  UtilityIPCData
 } from '@shared/types'
 import Logger from '@server/utils/logger'
 import path from 'path'
-import { shell, app, dialog } from 'electron'
+import { app, dialog, shell } from 'electron'
 import { setupFirewall } from './firewallHandler'
 import {
   checkForUpdates,
@@ -41,7 +41,6 @@ import { storeProvider } from '@server/stores/storeProvider'
  * - Setting and getting the current profile
  * - Running actions
  * Each function is responsible for handling a specific request type and returning the appropriate data or performing the requested action.
- *
  */
 export const utilityHandler: {
   [K in UTILITY_TYPES]: (

@@ -23,7 +23,7 @@ export class ExpressServer {
     this.setupResourceRoutes()
     this.setupProxyRoutes()
 
-    this.app.use((err: Error, _req: Request, res: Response, _next: NextFunction) => {
+    this.app.use((err: Error, _req: Request, res: Response) => {
       console.error('Express error:', err)
       res.status(500).send('Server error')
     })

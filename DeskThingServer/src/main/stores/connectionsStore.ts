@@ -3,7 +3,7 @@
  * It provides methods to add, update, and remove clients, as well as to get the list of connected clients and devices.
  * The class also handles the auto-detection of ADB devices and notifies listeners of changes to the client and device lists.
  */
-import { LOGGING_LEVELS } from '@DeskThing/types'
+import { LOGGING_LEVELS } from '@deskthing/types'
 import { ADBClient, CacheableStore, Client } from '@shared/types'
 import Logger from '@server/utils/logger'
 import { configureDevice } from '@server/handlers/deviceHandler'
@@ -23,7 +23,7 @@ export class ConnectionStore implements CacheableStore, ConnectionStoreClass {
   private clientListeners: ClientListener[] = []
   private deviceListeners: DeviceListener[] = []
   private autoDetectADB: boolean = false
-  private clearTimeout: NodeJS.Timeout | null = null
+  private clearTimeout: NodeJS.Timeout | undefined
 
   // Stores that are DI
   private settingsStore: SettingsStoreClass
@@ -54,7 +54,7 @@ export class ConnectionStore implements CacheableStore, ConnectionStoreClass {
   }
 
   public clearCache = async (): Promise<void> => {
-    this.clearTimeout && clearTimeout(this.clearTimeout)
+    clearTimeout(this.clearTimeout)
 
     this.devices = []
   }

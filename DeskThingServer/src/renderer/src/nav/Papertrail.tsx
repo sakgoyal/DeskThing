@@ -9,7 +9,7 @@ const Papertrail: React.FC = () => {
 
     return trail.map((item, index) => (
       <React.Fragment key={index}>
-        {index > 0 && <span>{' >'} </span>}
+        {index > 0 && <span>{' >'}</span>}
         <span>{item}</span>
       </React.Fragment>
     ))

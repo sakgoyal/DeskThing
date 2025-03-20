@@ -8,7 +8,7 @@ import MappingsDataListener from '@renderer/listeners/mappingsDataListener'
 import GithubDataListener from '@renderer/listeners/GithubDataListener'
 import UpdateDataListener from '@renderer/listeners/UpdateListener'
 
-const Store: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+const Store: React.FC<React.PropsWithChildren> = ({ children }) => {
   return (
     <>
       <ClientDataListener />

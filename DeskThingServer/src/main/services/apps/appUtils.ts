@@ -48,7 +48,7 @@ export function getAppFilePath(appName: string, fileName: string = '/'): string 
   } else {
     path = join(app.getPath('userData'), 'apps', appName, fileName)
   }
-  return path
+  return path!
 }
 
 export const getStandardizedFilename = (appId: string, version: string): string => {

@@ -2,7 +2,7 @@ import React from 'react'
 import { AppSettingProps } from './AppsOverlay'
 import { AppIcon } from '@renderer/components/AppIcon'
 
-const AppDetails: React.FC<AppSettingProps> = ({ app }: AppSettingProps) => {
+const AppDetails: React.FC<AppSettingProps> = ({ app }) => {
   if (!app.manifest) return null
 
   console.log(app.manifest.tags)

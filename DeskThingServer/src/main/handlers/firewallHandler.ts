@@ -5,7 +5,7 @@ import Logger from '@server/utils/logger'
 import fs from 'fs'
 import { join } from 'path'
 import { app } from 'electron'
-import { LOGGING_LEVELS } from '@DeskThing/types'
+import { LOGGING_LEVELS } from '@deskthing/types'
 import { ReplyFn } from '@shared/types'
 
 /**
@@ -83,14 +83,13 @@ async function setupFirewall(port: number, reply?: ReplyFn): Promise<void> {
   const outboundRuleName = 'Deskthing Server Outbound'
 
   try {
-    reply && reply('logging', { status: true, data: 'Checking if rules exist', final: false })
+    reply?.('logging', { status: true, data: 'Checking if rules exist', final: false })
     const ruleExists = await checkFirewallRuleExists(port)
     if (ruleExists) {
       Logger.debug(` Firewall rule for port ${port} verified successfully`, {
         source: 'setupFirewall'
       })
-      reply &&
-        reply('logging', { status: true, data: 'Verified that the rule exists!', final: false })
+      reply?.('logging', { status: true, data: 'Verified that the rule exists!', final: false })
     } else {
       Logger.log(LOGGING_LEVELS.ERROR, `FIREWALL: Failed to verify firewall rule for port ${port}!`)
       console.error(`Failed to verify firewall rule for port ${port}`)
@@ -105,7 +104,7 @@ async function setupFirewall(port: number, reply?: ReplyFn): Promise<void> {
 
 
       */
-      reply && reply('logging', { status: true, data: 'Running setup for windows', final: false })
+      reply?.('logging', { status: true, data: 'Running setup for windows', final: false })
       const script = `
         $inboundRuleName = "${inboundRuleName}"
         $outboundRuleName = "${outboundRuleName}"
@@ -132,14 +131,12 @@ async function setupFirewall(port: number, reply?: ReplyFn): Promise<void> {
           source: 'setupFirewall'
         })
 
-        reply &&
-          reply('logging', { status: true, data: 'Firewall ran without error', final: false })
+        reply?.('logging', { status: true, data: 'Firewall ran without error', final: false })
       } finally {
         fs.unlinkSync(tempScriptPath)
       }
     } else if (platform === 'linux') {
-      reply &&
-        reply('logging', { status: true, data: 'Running setup scripts for Linux', final: false })
+      reply?.('logging', { status: true, data: 'Running setup scripts for Linux', final: false })
       // Bash script for iptables on Linux
       const script = `
         #!/bin/bash
@@ -158,12 +155,11 @@ async function setupFirewall(port: number, reply?: ReplyFn): Promise<void> {
         source: 'setupFirewall'
       })
     } else if (platform === 'darwin') {
-      reply &&
-        reply('logging', {
-          status: true,
-          data: 'Running setup scripts for MacOS (WARN: RNDIS does not work on MacOS)',
-          final: false
-        })
+      reply?.('logging', {
+        status: true,
+        data: 'Running setup scripts for MacOS (WARN: RNDIS does not work on MacOS)',
+        final: false
+      })
       // Bash script for pfctl on macOS
       const script = `
         #!/bin/bash
@@ -189,17 +185,16 @@ async function setupFirewall(port: number, reply?: ReplyFn): Promise<void> {
       `FIREWALL: Error encountered trying to setup firewall for ${port}! Run administrator and try again`
     )
     if (error instanceof Error) {
-      reply &&
-        reply('logging', {
-          status: false,
-          data: 'Error in firewall',
-          error: error.message,
-          final: true
-        })
+      reply?.('logging', {
+        status: false,
+        data: 'Error in firewall',
+        error: error.message,
+        final: true
+      })
     }
     console.error(error)
   }
 
-  reply && reply('logging', { status: true, data: 'Firewall run successfully!', final: true })
+  reply?.('logging', { status: true, data: 'Firewall run successfully!', final: true })
 }
 export { setupFirewall }

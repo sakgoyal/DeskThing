@@ -36,7 +36,7 @@ import {
 } from '@server/services/github/githubUtils'
 
 // Static
-import { defaultClientReleaseFile, defaultAppReleaseData } from '@server/static/defaultRepos'
+import { defaultAppReleaseData, defaultClientReleaseFile } from '@server/static/defaultRepos'
 
 // Services
 import { fetchAssetContent, getLatestRelease } from '@server/services/github/githubService'

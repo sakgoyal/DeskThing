@@ -1,11 +1,11 @@
 console.log('[AppInst Service] Starting')
 // Types
-import { LOGGING_LEVELS, AppReleaseSingleMeta, App } from '@DeskThing/types'
+import { App, AppReleaseSingleMeta, LOGGING_LEVELS } from '@deskthing/types'
 import { ReplyFn, StagedAppManifest } from '@shared/types'
 
 // Utils
 import Logger from '@server/utils/logger'
-import { existsSync, promises } from 'node:fs'
+import { existsSync, PathLike, promises } from 'node:fs'
 import path from 'node:path'
 import { getAppFilePath, getManifest, getStandardizedFilename } from './appUtils'
 
@@ -41,7 +41,7 @@ export const executeStagedFile = async ({
         source: 'executeStagedFile',
         error: new Error('Error getting manifest from tempPath')
       })
-      reply && reply('logging', { status: false, data: 'Error getting manifest', final: true })
+      reply?.('logging', { status: false, data: 'Error getting manifest', final: true })
       return
     }
 
@@ -59,15 +59,13 @@ export const executeStagedFile = async ({
 
     // Delete the app directory if it exists
     if (existsSync(appPath)) {
-      reply &&
-        reply('logging', {
-          status: true,
-          data: 'Deleting existing app directory...',
-          final: false
-        })
+      reply?.('logging', {
+        status: true,
+        data: 'Deleting existing app directory...',
+        final: false
+      })
       await promises.rm(appPath, { recursive: true })
-      reply &&
-        reply('logging', { status: true, data: 'Deleted existing app directory', final: false })
+      reply?.('logging', { status: true, data: 'Deleted existing app directory', final: false })
       Logger.debug(`[executeStagedFile] Deleting existing app directory... ${appPath}`, {
         function: 'executeStagedFile',
         source: 'executeStagedFile'
@@ -197,7 +195,7 @@ export const findTempZipPath = async (
   throw new Error('No matching zip file found in temp directory')
 }
 
-const getTempZipPath = (tempPath, releaseMeta?: AppReleaseSingleMeta): string => {
+const getTempZipPath = (tempPath: string, releaseMeta?: AppReleaseSingleMeta): string => {
   if (releaseMeta) {
     const standardizedFileName = getStandardizedFilename(releaseMeta.id, releaseMeta.version)
     return path.join(tempPath, standardizedFileName)
@@ -206,17 +204,12 @@ const getTempZipPath = (tempPath, releaseMeta?: AppReleaseSingleMeta): string =>
 }
 
 export interface stageAppFileType {
-  filePath?: string
+  filePath?: PathLike
   releaseMeta?: AppReleaseSingleMeta
   reply: ReplyFn
 }
 
-/**
- * Stages all of the app's files to the staging directory.
- * @param path
- * @param reply
- * @returns
- */
+/** Stages all of the app's files to the staging directory */
 export const stageAppFile = async ({
   filePath,
   releaseMeta,
@@ -229,7 +222,7 @@ export const stageAppFile = async ({
     filePath = releaseMeta.updateUrl
   } else {
     // filePath exists. This asserts that
-    filePath = filePath as string
+    filePath = filePath!
   }
   const tempPath = getAppFilePath('staged')
   const tempZipPath = getTempZipPath(tempPath, releaseMeta)
@@ -273,12 +266,12 @@ export const stageAppFile = async ({
   await promises.mkdir(tempPath, { recursive: true })
 
   // Check if the path is a URL
-  if (filePath.startsWith('http://') || filePath.startsWith('https://')) {
+  if (filePath.toString().startsWith('http://') || filePath.toString().startsWith('https://')) {
     Logger.debug(`[handleZipFromUrl] URL Detected!`)
 
     reply('logging', { status: true, data: 'Fetching...', final: false })
 
-    const response = await fetch(filePath)
+    const response = await fetch(filePath.toString())
 
     let prevPercentage = 0
 
@@ -338,12 +331,12 @@ export const stageAppFile = async ({
         reply('logging', {
           status: false,
           data: 'File not found!',
-          error: filePath,
+          error: filePath.toString(),
           final: true
         })
         throw new Error(`Local file not found: ${path}`)
       }
-      if (!filePath.toLowerCase().endsWith('.zip')) {
+      if (!filePath.toString().toLowerCase().endsWith('.zip')) {
         reply('logging', {
           status: false,
           data: 'File must be a .zip file',
@@ -401,7 +394,7 @@ export const stageAppFile = async ({
       resolve()
     } catch (error) {
       Logger.log(LOGGING_LEVELS.ERROR, `[handleZipFromFile]: Error extracting ${extractedPath}`)
-      reply && reply('logging', { status: false, data: 'Extraction failed!', final: true })
+      reply?.('logging', { status: false, data: 'Extraction failed!', final: true })
       reject(error)
     }
   })
@@ -417,7 +410,7 @@ export const stageAppFile = async ({
       LOGGING_LEVELS.ERROR,
       `[handleZip] Error getting manifest from ${extractedPath}. Returning placeholder data...`
     )
-    reply && reply('logging', { status: true, data: 'Error getting manifest!', final: false })
+    reply?.('logging', { status: true, data: 'Error getting manifest!', final: false })
     return
   }
 

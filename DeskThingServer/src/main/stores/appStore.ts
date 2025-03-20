@@ -8,17 +8,17 @@ import {
 import {
   App,
   AppManifest,
-  LOGGING_LEVELS,
   EventPayload,
-  ServerEvent,
-  SEND_TYPES
-} from '@DeskThing/types'
-import { ReplyFn, StagedAppManifest, CacheableStore } from '@shared/types'
+  LOGGING_LEVELS,
+  SEND_TYPES,
+  ServerEvent
+} from '@deskthing/types'
+import { CacheableStore, ReplyFn, StagedAppManifest } from '@shared/types'
 import {
   AppStoreClass,
-  AppStoreListeners,
+  AppStoreListener,
   AppStoreListenerEvents,
-  AppStoreListener
+  AppStoreListeners
 } from '@shared/stores/appStore'
 
 // Utils
@@ -676,12 +676,11 @@ export class AppStore implements CacheableStore, AppStoreClass {
         source: 'AppStore',
         error: error as Error
       })
-      reply &&
-        reply('logging', {
-          status: false,
-          data: 'Error while trying to run staged app',
-          final: true
-        })
+      reply?.('logging', {
+        status: false,
+        data: 'Error while trying to run staged app',
+        final: true
+      })
     }
   }
 
@@ -698,51 +697,46 @@ export class AppStore implements CacheableStore, AppStoreClass {
     Logger.log(LOGGING_LEVELS.LOG, `[store.addApp]: Running addApp for ${filePath}`)
 
     try {
-      reply &&
-        reply('logging', {
-          status: true,
-          data: 'Staging file...',
-          final: false
-        })
+      reply?.('logging', {
+        status: true,
+        data: 'Staging file...',
+        final: false
+      })
       const newAppManifest = await stageAppFile({ filePath, releaseMeta, reply })
 
       if (!newAppManifest) {
-        reply &&
-          reply('logging', {
-            status: false,
-            data: 'Unable to stage app',
-            final: true
-          })
+        reply?.('logging', {
+          status: false,
+          data: 'Unable to stage app',
+          final: true
+        })
         return
       }
 
-      reply &&
-        reply('logging', {
-          status: true,
-          data: 'Finalizing...',
-          final: true
-        })
+      reply?.('logging', {
+        status: true,
+        data: 'Finalizing...',
+        final: true
+      })
 
       return newAppManifest
     } catch (e) {
       if (e instanceof Error) {
         Logger.log(LOGGING_LEVELS.ERROR, `[store.addApp]: ${e.message}`)
-        reply &&
-          reply('logging', {
-            status: false,
-            data: 'Unable to stage app',
-            error: e.message,
-            final: true
-          })
+        reply?.('logging', {
+          status: false,
+          data: 'Unable to stage app',
+          error: e.message,
+          final: true
+        })
       } else {
         Logger.log(LOGGING_LEVELS.ERROR, `[store.addApp]: Unknown error ` + String(e))
-        reply &&
-          reply('logging', {
-            status: false,
-            data: 'Unable to stage app',
-            error: String(e),
-            final: true
-          })
+        reply?.('logging', {
+          status: false,
+          data: 'Unable to stage app',
+          error: String(e),
+          final: true
+        })
       }
       return
     }

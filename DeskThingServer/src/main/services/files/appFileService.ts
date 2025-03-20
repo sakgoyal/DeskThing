@@ -14,11 +14,11 @@
  */
 
 console.log('[App File Service] Starting')
-import { App, LOGGING_LEVELS, AppManifest } from '@DeskThing/types'
+import { App, AppManifest, LOGGING_LEVELS } from '@deskthing/types'
 import Logger from '@server/utils/logger'
 import { AppData } from '@shared/types'
 import { readFromFile, writeToFile } from './fileService'
-import { verifyAppDataStructure, sanitizeAppStructure } from '../apps/appValidator'
+import { sanitizeAppStructure, verifyAppDataStructure } from '../apps/appValidator'
 
 const defaultData: AppData = {}
 

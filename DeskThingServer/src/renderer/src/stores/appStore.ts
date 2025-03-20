@@ -1,4 +1,4 @@
-import { App, AppReleaseSingleMeta, AppSettings } from '@DeskThing/types'
+import { App, AppReleaseSingleMeta, AppSettings } from '@deskthing/types'
 import { LoggingData, StagedAppManifest } from '@shared/types'
 import { create } from 'zustand'
 import useSettingsStore from './settingsStore'
@@ -152,7 +152,7 @@ const useAppStore = create<AppStoreState>((set, get) => ({
     return await window.electron.getAppData(appName)
   },
 
-  setAppData: (appName: string, data: { [key: string]: string }): void => {
+  setAppData: (appName: string, data: Record<string, string>): void => {
     window.electron.setAppData(appName, data)
   },
 

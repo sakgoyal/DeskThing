@@ -1,7 +1,7 @@
 import { IconArrowRight } from '@renderer/assets/icons'
 import Button from '@renderer/components/Button'
 import Overlay from '@renderer/overlays/Overlay'
-import { FC, useState, useMemo } from 'react'
+import { FC, useMemo, useState } from 'react'
 
 interface AddRepoProps {
   onClose: () => void

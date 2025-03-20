@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useCallback, useMemo } from 'react'
 import { useAppStore } from '@renderer/stores'
-import { AppSettings as AppSettingsType } from '@DeskThing/types'
+import { AppSettings as AppSettingsType } from '@deskthing/types'
 import { AppSettingProps } from './AppsOverlay'
 import Button from '@renderer/components/Button'
 import { IconLoading, IconSave } from '@renderer/assets/icons'
@@ -13,9 +13,9 @@ const AppSettings: React.FC<AppSettingProps> = ({ app }) => {
   const [loading, setLoading] = useState(false)
 
   useEffect(() => {
-    const fetchAppData = async (): Promise<void> => {
+    const fetchAppData = async () => {
       const data = await getAppSettings(app.name)
-      data && setAppData(data)
+      if (data) setAppData(data)
     }
     fetchAppData()
   }, [app.name, getAppSettings])

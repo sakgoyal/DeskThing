@@ -1,5 +1,5 @@
 import { create } from 'zustand'
-import { Step, Task } from '@DeskThing/types'
+import { Step, Task } from '@deskthing/types'
 import { FullTaskList } from '@shared/types'
 interface NotificationStoreState {
   // Nested tasks first by appId then by taskId

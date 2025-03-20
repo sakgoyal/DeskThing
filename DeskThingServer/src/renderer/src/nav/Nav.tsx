@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import usePageStore from '../stores/pageStore'
 import {
   IconCarThingSmall,
@@ -130,11 +130,7 @@ const NavButton = ({
     <div className="relative" ref={dropdownRef}>
       <button
         onClick={handleClick}
-        className={`p-4 h-full w-full text-lg font-medium flex items-center justify-center gap-2 ${
-          currentPage.includes(location)
-            ? ' text-white border-b border-green-500'
-            : 'text-gray-400 hover:bg-zinc-950 hover:text-white'
-        }`}
+        className={`p-4 h-full w-full text-lg font-medium flex items-center justify-center gap-2 ${currentPage.includes(location) ? ' text-white border-b border-green-500' : 'text-gray-400 hover:bg-zinc-950 hover:text-white'}`}
       >
         {children}
       </button>

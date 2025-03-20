@@ -2,7 +2,7 @@ import { IconArrowDown, IconCheck, IconX } from '@renderer/assets/icons'
 import Button from '@renderer/components/Button'
 import { useNotificationStore } from '@renderer/stores'
 import { Request } from '@renderer/stores/notificationStore'
-import React, { useState, useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 
 const RequestsPage: React.FC = () => {
   const requests = useNotificationStore((state) => state.requestQueue)

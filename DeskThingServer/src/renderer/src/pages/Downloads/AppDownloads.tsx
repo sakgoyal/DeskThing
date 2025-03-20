@@ -17,7 +17,7 @@ import { useAppStore, useGithubStore, usePageStore } from '@renderer/stores'
 import MainElement from '@renderer/nav/MainElement'
 import DownloadNotification from '@renderer/overlays/DownloadNotification'
 import { SuccessNotification } from '@renderer/overlays/SuccessNotification'
-import { AppReleaseCommunity, AppReleaseMeta, AppReleaseSingleMeta } from '@DeskThing/types'
+import { AppReleaseCommunity, AppReleaseMeta, AppReleaseSingleMeta } from '@deskthing/types'
 import AddRepoOverlay from '@renderer/overlays/AddRepoOverlay'
 
 /**

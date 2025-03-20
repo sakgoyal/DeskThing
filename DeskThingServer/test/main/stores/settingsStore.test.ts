@@ -1,4 +1,4 @@
-import { describe, expect, it, vi, beforeEach, afterEach } from 'vitest'
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { SettingsStore } from '@server/stores/settingsStore'
 import { Settings } from '@shared/types'
 import * as os from 'os'

@@ -1,17 +1,17 @@
 // Types
 import {
   Action,
-  EventMode,
-  Key,
   ActionReference,
-  ServerEvent,
-  EventPayload,
-  LOGGING_LEVELS,
-  SEND_TYPES,
   ButtonMapping,
-  Profile
-} from '@DeskThing/types'
-import { MappingStructure, Button, CacheableStore } from '@shared/types'
+  EventMode,
+  EventPayload,
+  Key,
+  LOGGING_LEVELS,
+  Profile,
+  SEND_TYPES,
+  ServerEvent
+} from '@deskthing/types'
+import { Button, CacheableStore, MappingStructure } from '@shared/types'
 import { Listener, ListenerPayloads, MappingStoreClass } from '@shared/stores/mappingStore'
 import { AppStoreClass } from '@shared/stores/appStore'
 
@@ -24,10 +24,10 @@ import {
   ConstructActionReference,
   isValidAction,
   isValidActionReference,
-  isValidKey,
-  validMappingExists,
   isValidButtonMapping,
-  sanitizeAction
+  isValidKey,
+  sanitizeAction,
+  validMappingExists
 } from '@server/services/mappings/mapsValidation'
 import { FetchIcon } from '@server/services/mappings/mapsUtils'
 import { defaultProfile } from '@server/static/defaultMapping'
@@ -290,11 +290,11 @@ export class MappingStore implements CacheableStore, MappingStoreClass {
       return
     }
 
-    const mappingProfile = mapping.profiles[button.profile || 'default']
+    const mappingProfile = mapping.profiles[button.profile ?? 'default']
     if (!mappingProfile) {
       Logger.log(
         LOGGING_LEVELS.ERROR,
-        `[MappingStore]: Profile ${button.profile || 'default'} does not exist! Create a new profile with the name ${button.profile || 'default'} and try again`
+        `[MappingStore]: Profile ${button.profile ?? 'default'} does not exist! Create a new profile with the name ${button.profile ?? 'default'} and try again`
       )
       return
     }
@@ -317,9 +317,7 @@ export class MappingStore implements CacheableStore, MappingStoreClass {
     }
 
     // Ensuring the key exists in the mapping
-    if (!mappingProfile[button.key]) {
-      mappingProfile[button.key] = {}
-    }
+    mappingProfile.mapping[button.key] ??= {}
 
     const action = ConstructActionReference(mappingAction)
 
@@ -328,7 +326,7 @@ export class MappingStore implements CacheableStore, MappingStoreClass {
       isValidActionReference(action)
 
       // Adding the button to the mapping
-      mappingProfile[button.key][button.mode] = action
+      mappingProfile.mapping[button.key][button.mode] = action
 
       // Save the mappings to file
       mapping.profiles[button.profile || 'default'] = mappingProfile
@@ -373,7 +371,7 @@ export class MappingStore implements CacheableStore, MappingStoreClass {
       return
     }
     // Ensuring the key exists in the mapping
-    if (!mappingsProfile[button.key]) {
+    if (!mappingsProfile.mapping[button.key]) {
       Logger.log(
         LOGGING_LEVELS.ERROR,
         `[MappingStore]: Key ${button.key} does not exist in profile ${button.profile || 'default'}!`
@@ -383,21 +381,21 @@ export class MappingStore implements CacheableStore, MappingStoreClass {
 
     if (button.mode === null) {
       // Remove the entire key
-      delete mappingsProfile[button.key]
+      delete mappingsProfile.mapping[button.key]
       Logger.log(
         LOGGING_LEVELS.LOG,
         `[MappingStore]: Key ${button.key} removed from profile ${button.profile || 'default'}`
       )
     } else {
       // Ensure that the Mode exists in the mapping
-      if (!mappingsProfile[button.key][button.mode]) {
+      if (!mappingsProfile.mapping[button.key][button.mode]) {
         Logger.log(
           LOGGING_LEVELS.ERROR,
           `[MappingStore]: Mode ${button.mode} does not exist in key ${button.key} in profile ${button.profile || 'default'}!`
         )
       } else {
         // Removing the button from the mapping
-        delete mappingsProfile[button.key][button.mode]
+        delete mappingsProfile.mapping[button.key][button.mode]
       }
     }
 
@@ -628,7 +626,7 @@ export class MappingStore implements CacheableStore, MappingStoreClass {
       actionContainer: Record<string, Record<EventMode, ActionReference>>
     ): Record<string, Record<EventMode, ActionReference>> => {
       Object.values(actionContainer).forEach((buttonMappings) => {
-        Object.keys(buttonMappings).forEach((mode) => {
+        ;(Object.keys(buttonMappings) as unknown as EventMode[]).forEach((mode) => {
           if (buttonMappings[mode]?.source === sourceId) {
             buttonMappings[mode].enabled = false
           }
@@ -1024,7 +1022,7 @@ export class MappingStore implements CacheableStore, MappingStoreClass {
           request: '',
           type: ServerEvent.ACTION
         }
-        action.source && this.appStore.sendDataToApp(action.source, SocketData)
+        if (action.source) this.appStore.sendDataToApp(action.source, SocketData)
       } else {
         Logger.log(LOGGING_LEVELS.ERROR, `[MappingStore]: Action not found or not enabled!`)
       }

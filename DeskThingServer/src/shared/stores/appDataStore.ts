@@ -4,12 +4,12 @@
  */
 
 import {
-  AppSettings,
-  Task,
   AppDataInterface,
-  Step,
+  AppSettings,
+  SavedData,
   SettingsType,
-  SavedData
+  Step,
+  Task
 } from '@deskthing/types'
 import { FullTaskList, TaskReference } from '../types'
 import { TaskStoreClass } from './taskStore'

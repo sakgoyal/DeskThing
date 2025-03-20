@@ -1,11 +1,11 @@
 import WebSocket, { WebSocketServer } from 'ws'
-import { Server as HttpServer, IncomingMessage } from 'http'
+import { IncomingMessage, Server as HttpServer } from 'http'
 import { parentPort, workerData } from 'worker_threads'
 import express from 'express'
 import crypto from 'crypto'
 import {
-  PlatformEvent,
   PlatformConnectionOptions,
+  PlatformEvent,
   PlatformEventPayloads,
   PlatformStatus
 } from '@shared/interfaces/platform'

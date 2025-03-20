@@ -1,13 +1,13 @@
 import { Worker } from 'node:worker_threads'
 import {
-  PlatformInterface,
-  PlatformEvent,
-  PlatformConnectionOptions,
   PlatformConnectionListener,
+  PlatformConnectionOptions,
+  PlatformEvent,
   PlatformEventPayloads,
+  PlatformInterface,
   PlatformStatus
 } from '@shared/interfaces/platform'
-import { SocketData } from '@DeskThing/types'
+import { SocketData } from '@deskthing/types'
 import { Client } from '@shared/types'
 import wsPath from './wsWebsocket?modulePath'
 import { app } from 'electron'

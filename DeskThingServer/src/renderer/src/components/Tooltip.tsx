@@ -4,7 +4,7 @@ interface TooltipProps {
   className?: string
 }
 
-const Tooltip: React.FC<TooltipProps> = ({ text, bottom = true, className }: TooltipProps) => {
+const Tooltip: React.FC<TooltipProps> = ({ text, bottom = true, className }) => {
   return (
     <div
       className={`hidden absolute w-fit h-full bottom-full group-hover:flex ${bottom ? 'translate-y-[200%] items-start' : 'translate-y items-end'}`}

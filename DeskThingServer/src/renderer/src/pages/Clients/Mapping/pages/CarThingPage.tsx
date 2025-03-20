@@ -2,9 +2,9 @@ import { PageProps } from '..'
 import { IconCarThing } from '@renderer/assets/icons'
 import Button from '@renderer/components/Button'
 import useMappingStore from '@renderer/stores/mappingStore'
-import { useState, useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { ActionIcon } from '../components/ActionIcon'
-import { EventMode, Key } from '@DeskThing/types'
+import { EventMode, Key } from '@deskthing/types'
 
 const keyList: string[] = ['Swipe', 'Digit1', 'Digit2', 'Digit3', 'Digit4', 'Escape']
 
@@ -14,7 +14,7 @@ const CarThingPage: React.FC<PageProps> = ({
   currentMapping,
   mode,
   setCurrentMode
-}: PageProps) => {
+}) => {
   const keys = useMappingStore((state) => state.keys)
   const [miniplayerKeys, setMiniplayerKeys] = useState<Key[]>([])
 
@@ -27,7 +27,7 @@ const CarThingPage: React.FC<PageProps> = ({
     const Key = miniplayerKeys.find((k) => k.id == key)
     if (Key) {
       setSelectedKey(Key)
-      mode ? setCurrentMode(mode) : setCurrentMode(EventMode.PressShort)
+      setCurrentMode(mode ? mode : EventMode.PressShort)
     }
   }
 

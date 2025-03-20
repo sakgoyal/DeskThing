@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { SettingOption } from '@DeskThing/types'
+import { SettingOption } from '@deskthing/types'
 import { IconArrowDown, IconArrowUp } from '@renderer/assets/icons'
 
 type RankableListProps = {
@@ -58,9 +58,7 @@ const RankableList: React.FC<RankableListProps> = ({ options, onChange, value })
             </button>
             <button
               onClick={() => handleMoveDown(index)}
-              className={`p-1 rounded-md hover:bg-zinc-800 ${
-                index === orderedOptions.length - 1 ? 'opacity-30 cursor-not-allowed' : ''
-              }`}
+              className={`p-1 rounded-md hover:bg-zinc-800 ${index === orderedOptions.length - 1 ? 'opacity-30 cursor-not-allowed' : ''}`}
             >
               <IconArrowDown className="stroke-2 text-gray-400" />
             </button>

@@ -13,7 +13,6 @@ export default defineConfig({
       '@server': resolve('src/main'),
       '@shared': resolve('src/shared'),
       '@utilities': resolve('src/main/utilities')
-
     }
   }
 })

@@ -197,7 +197,7 @@ const ADBDevice: React.FC<ADBComponentProps> = ({ adbDevice }) => {
           >
             {loading ? <IconLoading /> : <IconConfig />}
             <p className="">
-              Reconnect<span className="hidden lg:inline"> Device</span>
+              Reconnect<span className="hidden lg:inline">Device</span>
             </p>
           </Button>
         )}

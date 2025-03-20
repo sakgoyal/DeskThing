@@ -1,8 +1,8 @@
 import { IconLayoutgrid } from '@renderer/assets/icons'
 import Button from '@renderer/components/Button'
 import useMappingStore from '@renderer/stores/mappingStore'
-import { ActionReference, EventMode, Key, ButtonMapping } from '@DeskThing/types'
-import { FC, useState, useEffect } from 'react'
+import { ActionReference, ButtonMapping, EventMode, Key } from '@deskthing/types'
+import { FC, useEffect, useState } from 'react'
 
 interface AvailableKeysProps {
   KeyList: string[]
@@ -18,7 +18,7 @@ const AvailableKeys: React.FC<AvailableKeysProps> = ({
   setSelectedKey,
   currentMapping,
   mode
-}: AvailableKeysProps) => {
+}) => {
   const keys = useMappingStore((state) => state.keys)
   const [availableKeys, setAvailableKeys] = useState<Key[]>(keys)
   const [actionsExpanded, setActionsExpanded] = useState(false)

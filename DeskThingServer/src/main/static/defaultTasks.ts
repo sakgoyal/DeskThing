@@ -1,4 +1,4 @@
-import { Task, STEP_TYPES } from '@DeskThing/types'
+import { STEP_TYPES, Task } from '@deskthing/types'
 
 export const ServerTasks: Record<string, Task> = {
   gettingstarted: {

@@ -1,6 +1,6 @@
 import { AuthStoreClass, authStoreEventTypes } from '@shared/stores/authStore'
 import { EventEmitter } from 'node:events'
-import { Server, createServer, IncomingMessage, ServerResponse } from 'http'
+import { createServer, IncomingMessage, Server, ServerResponse } from 'http'
 import { parse, URL } from 'url'
 import { getAppData } from '../services/files/appFileService'
 import Logger from '../utils/logger'

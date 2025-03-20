@@ -1,4 +1,4 @@
-import { ADBClient, Client } from '@shared/types'
+import { ADBClient } from '@shared/types'
 import { sendIpcData } from '../../index'
 import Logger from '../../utils/logger'
 import { storeProvider } from '../../stores/storeProvider'
@@ -23,16 +23,16 @@ export async function initializeStores(): Promise<void> {
 
   // Set up store listeners
   storeList.mappingStore.addListener('action', (action) => {
-    action && sendIpcData({ type: 'action', payload: action })
+    if (action) sendIpcData({ type: 'action', payload: action })
   })
   storeList.mappingStore.addListener('key', (key) => {
-    key && sendIpcData({ type: 'key', payload: key })
+    if (key) sendIpcData({ type: 'key', payload: key })
   })
   storeList.mappingStore.addListener('profile', (profile) => {
-    profile && sendIpcData({ type: 'profile', payload: profile })
+    if (profile) sendIpcData({ type: 'profile', payload: profile })
   })
 
-  storeList.connectionsStore.on((clients: Client[]) => {
+  storeList.connectionsStore.on((clients) => {
     sendIpcData({
       type: 'connections',
       payload: { status: true, data: clients.length, final: true }

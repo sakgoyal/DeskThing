@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import Overlay from './Overlay'
-import { useClientStore, useAppStore, useSettingsStore } from '@renderer/stores'
+import { useAppStore, useClientStore, useSettingsStore } from '@renderer/stores'
 import { Client } from '@shared/types'
 import { IconRefresh, IconSave } from '@renderer/assets/icons'
 

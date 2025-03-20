@@ -17,9 +17,7 @@ export interface Config {
 
 export type LegacyAppData = {
   apps: App[]
-  config: {
-    [key: string]: string | string[]
-  }
+  config: Record<string, string | string[]>
 }
 
 export type AppData = {

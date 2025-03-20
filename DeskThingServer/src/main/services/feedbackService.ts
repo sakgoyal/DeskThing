@@ -205,7 +205,7 @@ export class FeedbackService {
           ].join('\n'),
           inline: false
         })
-        systemInfo.apps &&
+        if (systemInfo.apps)
           fields.push({
             name: 'Apps',
             value:
@@ -217,7 +217,7 @@ export class FeedbackService {
                 .join('\n') || 'No apps',
             inline: false
           })
-        systemInfo.clients &&
+        if (systemInfo.clients)
           fields.push({
             name: 'Clients',
             value:

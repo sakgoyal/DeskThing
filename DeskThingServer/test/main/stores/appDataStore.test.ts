@@ -1,16 +1,16 @@
-import { describe, expect, it, vi, beforeEach, afterEach } from 'vitest'
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { AppDataStore } from '../../../src/main/stores/appDataStore'
 import { AppStoreClass } from '@shared/stores/appStore'
 import { TaskStoreClass } from '@shared/stores/taskStore'
 import {
+  AppSettings,
   ServerEvent,
-  Task,
-  Step,
-  STEP_TYPES,
   SETTING_TYPES,
   SettingsType,
-  AppSettings
-} from '@DeskThing/types'
+  Step,
+  STEP_TYPES,
+  Task
+} from '@deskthing/types'
 import Logger from '@server/utils/logger'
 
 vi.mock('@server/services/files/dataFileService', () => ({
